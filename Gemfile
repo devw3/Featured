@@ -34,6 +34,7 @@ gem "redis", "~> 4.0"
 # gem "kredis"
 
 gem 'friendly_id'
+gem 'rails_admin'
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
@@ -72,3 +73,4 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
+gem "sassc-rails"
