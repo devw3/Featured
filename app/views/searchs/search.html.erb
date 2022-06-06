@@ -1,0 +1,55 @@
+<div class="container">
+  <section class="page search">
+    <div class="page__header page__header--center">
+      <h1 class="page__title">Veja o que encontramos</h1>
+
+      <p class="page__summary">
+        Você buscou por <strong>"<%= params[:q] %>"</strong>
+        e parece que encontramos <%= @result_search_size if @result_search_size %> resultado(s).
+      </p>
+    </div>
+
+    <%= render 'searchs/form' %>
+
+    <% if @result_search.present? %>
+      <% @result_search.each do |result_search| %>
+        <section class="fc-item fc-item--border fc-figure--clip">
+          <%= link_to url_link(result_search), class: 'fc-link' do %>
+            <% if result_search[:image].present? %>
+              <figure class="fc-figure">
+                <%= image_tag result_search[:image], class: 'fc-image' %>
+              </figure>
+            <% end %>
+
+            <div class="fc-time fc-time--small">
+              <span class="ion-android-time icon--left"></span> <%= result_search[:date_publish] %>
+            </div>
+
+            <h2 class="fc-caption fc-caption--small">
+              <%= type_name(result_search[:type], result_search[:category]) %>
+            </h2>
+
+            <h1 class="fc-title">
+              <%= strip_tags result_search[:title] %>
+            </h1>
+          <% end %>
+        </section>
+      <% end %>
+    <% else %>
+      <div class="text--center">
+        <div class="page__header">
+          <h3 class="page__title">Ops!</h3>
+        </div>
+
+        <div class="page__text page__text--large">
+          <p>
+            Parece que não encontramos o que você procura. <br>
+            <strong>Por que não tenta novamente?</strong>
+          </p>
+        </div>
+      </div>
+    <% end %>
+
+    <%= paginate @result_search if @result_search %>
+  </section>
+</div>

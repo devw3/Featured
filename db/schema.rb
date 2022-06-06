@@ -39,10 +39,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_03_204053) do
 
   create_table "posts", force: :cascade do |t|
     t.string "title"
+    t.string "slug"
+    t.datetime "date_publish"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "slug"
-    t.index ["slug"], name: "index_posts_on_slug", unique: true
   end
 
   add_foreign_key "photos", "featured_contents", column: "featured_contents_id"

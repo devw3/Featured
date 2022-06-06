@@ -1,0 +1,10 @@
+<% autofocus = "autofocus" unless params[:q] %>
+<form class="form search__form" action="<%= search_path %>">
+  <div class="form__field search__field">
+    <label class="form__label search__label" for="form">Buscar no site</label>
+    <input class="form__input search__input" type="form" name="q" value="<%= params[:q] %>" id="form" <%= autofocus %> placeholder="O que você procura?">
+    <button class="btn search__btn" type="submit">
+      <span class="ion-search"></span>
+    </button>
+  </div>
+</form>
