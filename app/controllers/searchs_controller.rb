@@ -1,5 +1,4 @@
-class SearchsController < ApplicationController
-  layout "application_no_google_news"
+class SearchsController < ApplicationController 
 
   def index
     @msg = ""
@@ -20,27 +19,15 @@ class SearchsController < ApplicationController
 
     conditional[:status] = true
 
-    content_builder = ContentBuilder
+    post = Post
     .search(q, operator: "and", where: conditional, order: order)
-
-    posts = Post.search(q, order: order) 
 
     array_search = []
 
-    albums.each do |n|
-      array_search << {
-        title: n.title,
-        slug: n.slug,
-        date_publish: n.date_publish.strftime("%d/%m/%Y"),
-        type: 2
-      }
-    end
-    
 
-    content_builder.each do |n|
+    post.each do |n|
       array_search << {
-        title: n.title,
-        #category: n.category.slug,
+        title: n.title,      
         slug: n.slug,
         date_publish: n.date_publish.strftime("%d/%m/%Y"),
         type: 1
