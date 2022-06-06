@@ -51,9 +51,10 @@ gem "bootsnap", require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
-gem "searchkick", "2.1.1"
+gem "searchkick"
 
-gem "elasticsearch", "~> 5.0.3"
+gem  "elasticsearch", "< 7.14"
+# gem "opensearch-ruby" # select one
 
 gem "kaminari"
 

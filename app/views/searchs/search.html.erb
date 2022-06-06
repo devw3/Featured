@@ -13,8 +13,7 @@
 
     <% if @result_search.present? %>
       <% @result_search.each do |result_search| %>
-        <section class="fc-item fc-item--border fc-figure--clip">
-          <%= link_to url_link(result_search), class: 'fc-link' do %>
+        <section class="fc-item fc-item--border fc-figure--clip">       
             <% if result_search[:image].present? %>
               <figure class="fc-figure">
                 <%= image_tag result_search[:image], class: 'fc-image' %>
@@ -23,16 +22,11 @@
 
             <div class="fc-time fc-time--small">
               <span class="ion-android-time icon--left"></span> <%= result_search[:date_publish] %>
-            </div>
-
-            <h2 class="fc-caption fc-caption--small">
-              <%= type_name(result_search[:type], result_search[:category]) %>
-            </h2>
+            </div>          
 
             <h1 class="fc-title">
               <%= strip_tags result_search[:title] %>
-            </h1>
-          <% end %>
+            </h1>        
         </section>
       <% end %>
     <% else %>
