@@ -13,3 +13,33 @@
  *= require_tree .
  *= require_self
  */
+
+ header{
+    background-color: #212529!important;
+    color: white;
+
+    display: flex;
+    justify-content: space-between;
+
+    padding: 1rem 1rem 0rem 1rem;
+
+    .show_button{
+        width: 6rem;
+        height: 3rem;
+        line-height: 3rem;
+        text-align: center;
+
+        background-color: blue;
+
+        a{
+            color: white;
+            text-decoration: none;
+
+            text-align: center;    
+        }
+    }
+}
+
+.fc-options{
+    width: 100%;
+}
