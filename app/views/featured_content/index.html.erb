@@ -15,15 +15,15 @@
         </a>
         <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
           <li class="nav-item">
-            <button onclick="createStripe()"  class="nav-link align-middle px-0">
+            <button onclick = "createStripe()"  class="nav-link align-middle px-0">
               <%= image_tag("fc-tarja", class: "fc-options") %>
             </button>
           </li>
 
           <li class="nav-item">
-            <a href="#" class="nav-link align-middle px-0">
+            <button onclick = "createBigTitle()" class="nav-link align-middle px-0">
               <%= image_tag("fc-big-title", class: "fc-options") %>
-            </a>
+            </button>
           </li>
 
           <li class="nav-item">
@@ -52,46 +52,75 @@
           </form>
         </div>
       </div>
-
       Content area...
     </div>
   </div>
 </div>
 
 <script>
-  function createStripe() {
-  	//Generate dinamic ic
-  	const generateID = ()=> {
-     return Math.random().toString(36).slice(2)
-  }
-
-		const uid = generateID()
+  function createStripe() {	
   	//Create strip
   	let strip = document.createElement("div")
   	strip.setAttribute("class", "p-3 mb-2 bg-dark text-white")
     let text = document.createTextNode("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s");
-  	strip.appendChild(text);
-
-  	//Button delete
-  	buttondlt = document.createElement("button")
-  	buttondlt.setAttribute("class", "btn btn-danger")
-  	buttondlt.setAttribute("id", uid)
-  	buttondlt.setAttribute("onclick", "deleteItem(this.id)")
-  	buttondlt.textContent = 'Deletar';
-
-  	let element = document.createElement("div");
-  	element.setAttribute("id", uid)
-  	element.appendChild(strip);
-  	element.appendChild(buttondlt);
-  
-  	// Add div in container
-  	content = document.getElementById("content")
-  	content.appendChild(element)
+  	strip.appendChild(text);  
+		appendDiv(strip)
   }
 
+  // Create Big title
+  function createBigTitle() {	
+
+    let title = document.createElement("h3")    
+    title.setAttribute("id", "customizing-headings")
+    let text = document.createTextNode("Título");
+    title.appendChild(text)
+
+    let subtitle = document.createElement("p")    
+    text = document.createTextNode("Sub título");
+    subtitle.appendChild(text)
+
+    appendDiv(title, subtitle)
+  }
+
+  // Delete function
 	function deleteItem(id) {
 		console.log(id)
 		const element = document.getElementById(id);
 		element.remove();
 	}
+
+	//Generate dinamic ic
+  function idGenerator() {		
+		return Math.random().toString(36).slice(2)	
+  }
+
+  // Create buttons elements
+	function deleteButton(id) {
+		buttondlt = document.createElement("button")
+  	buttondlt.setAttribute("class", "btn btn-danger")
+  	buttondlt.setAttribute("id", id)
+  	buttondlt.setAttribute("onclick", "deleteItem(this.id)")
+  	buttondlt.textContent = 'Deletar';	
+		return buttondlt 	
+	}
+
+  // Append Elements in view
+	function appendDiv(...n) {
+    const uid = idGenerator()
+    let element = document.createElement("div");
+    buttondlt = deleteButton(uid)
+  	element.setAttribute("id", uid)
+
+    n.forEach(e => {
+      element.appendChild(e);      
+      element.appendChild(buttondlt);
+    });
+
+  	// Add div in container
+  	content = document.getElementById("content")
+  	content.appendChild(element)  
+	}
+
 </script>
+
+
