@@ -1,0 +1,10 @@
+<%= posts.count %>
+
+<% posts.each do |post| %>
+  <br>
+  
+  <%= link_to post do %>
+    <%= highlight(post.title, params.dig(:title_search)) %>
+
+  <% end %>
+<% end %>

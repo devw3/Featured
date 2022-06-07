@@ -42,19 +42,50 @@
         </div>
 
         <div class="col py-3" id="content">			
-					<div id="container-input" class="header-top__right">
-						<div class="header-top__right--row">
-							<form class="header-top__right--form" method="GET" action="/busca/resultados">
-								<input type="text" name="q" placeholder="BUSCAR"/>
-								<button>
-									ok
-								</button>
-							</form>
-						</div>
-					</div>
+            <div id="container-input" class="header-top__right">
+                <div class="header-top__right--row">
+                    <form id = "form_search"class="header-top__right--form" method="GET" action="/busca/resultados">
+                        <input id = "input" type="text" name="q" placeholder="BUSCAR" />
 
+                        <button id = "button">
+                            ok
+                        </button>
+                    </form>
+                </div>
+            </div>
 
             Content area...
         </div>
+        <script>
+            $( function() {
+                var availableTags = [
+                "ActionScript",
+                "AppleScript",
+                "Asp",
+                "BASIC",
+                "C",
+                "C++",
+                "Clojure",
+                "COBOL",
+                "ColdFusion",
+                "Erlang",
+                "Fortran",
+                "Groovy",
+                "Haskell",
+                "Java",
+                "JavaScript",
+                "Lisp",
+                "Perl",
+                "PHP",
+                "Python",
+                "Ruby",
+                "Scala",
+                "Scheme"
+                ];
+                $( "#input" ).autocomplete({
+                source: availableTags
+                });
+            } );
+        </script>
     </div>
 </div>

@@ -1,5 +1,5 @@
 class Post < ApplicationRecord
-	searchkick batch_size: 50, index_prefix: "featured"
+	searchkick word_start: [:title]
 
 	extend FriendlyId
 		friendly_id :title, use: :slugged
