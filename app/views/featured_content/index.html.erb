@@ -1,8 +1,8 @@
 <header>
   <h1>FeaturedContent_index</h1>
 
-  <div class = "show_button">
-    <%= link_to "show", :show_path %>
+  <div class="show_button">
+    <%= link_to "show" , :show_path %>
   </div>
 </header>
 
@@ -15,26 +15,26 @@
         </a>
         <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
           <li class="nav-item">
-            <button onclick = "createStripe()"  class="nav-link align-middle px-0">
-              <%= image_tag("fc-tarja", class: "fc-options") %>
+            <button onclick="createStripe()" class="nav-link align-middle px-0">
+              <%= image_tag("fc-tarja", class: "fc-options" ) %>
             </button>
           </li>
 
           <li class="nav-item">
-            <button onclick = "createBigTitle()" class="nav-link align-middle px-0">
-              <%= image_tag("fc-big-title", class: "fc-options") %>
+            <button onclick="createBigTitle()" class="nav-link align-middle px-0">
+              <%= image_tag("fc-big-title", class: "fc-options" ) %>
+            </button>
+          </li>
+
+          <li class="nav-item">
+            <button onclick="createSlide()" class="nav-link align-middle px-0">
+              <%= image_tag("fc-slide", class: "fc-options" ) %>
             </button>
           </li>
 
           <li class="nav-item">
             <a href="#" class="nav-link align-middle px-0">
-              <%= image_tag("fc-slide", class: "fc-options") %>
-            </a>
-          </li>
-
-          <li class="nav-item">
-            <a href="#" class="nav-link align-middle px-0">
-              <%= image_tag("fc-image-in-block", class: "fc-options") %>
+              <%= image_tag("fc-image-in-block", class: "fc-options" ) %>
             </a>
           </li>
         </ul>
@@ -45,7 +45,7 @@
       <div id="container-input" class="header-top__right">
         <div class="header-top__right--row">
           <form class="header-top__right--form" method="GET" action="/busca/resultados">
-            <input type="text" name="q" placeholder="BUSCAR"/>
+            <input type="text" name="q" placeholder="BUSCAR" />
             <button>
               ok
             </button>
@@ -53,29 +53,76 @@
         </div>
       </div>
       Content area...
+      <!-- slide -->
+      <!-- <div class="text-center">     
+      </div>
+      <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+            aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+            aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+            aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="https://source.unsplash.com/collection/190726/3000x900" class="d-block w-100" alt="image">
+            <div class="carousel-caption d-none d-md-block">
+              <h3 class="text-danger">First slide label</h3>
+              <p class="lead">Some representative placeholder content for the first slide.</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="https://source.unsplash.com/collection/190727/3000x900" class="d-block w-100" alt="image">
+            <div class="carousel-caption d-none d-md-block">
+              <h3 class="text-danger">Second slide label</h3>
+              <p class="lead">Some representative placeholder content for the second slide.</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="https://source.unsplash.com/collection/190726/3000x900" class="d-block w-100" alt="image">
+            <div class="carousel-caption d-none d-md-block">
+              <h3 class="text-danger">Third slide label</h3>
+              <p class="lead">Some representative placeholder content for the third slide.</p>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+          data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+          data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div> -->
+      <!-- slide -->
     </div>
   </div>
 </div>
 
 <script>
-  function createStripe() {	
-  	//Create strip
-  	let strip = document.createElement("div")
-  	strip.setAttribute("class", "p-3 mb-2 bg-dark text-white")
+  function createStripe() {
+    //Create strip
+    let strip = document.createElement("div")
+    strip.setAttribute("class", "p-3 mb-2 bg-dark text-white")
     let text = document.createTextNode("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s");
-  	strip.appendChild(text);  
-		appendDiv(strip)
+    strip.appendChild(text);
+    appendDiv(strip)
   }
 
   // Create Big title
-  function createBigTitle() {	
+  function createBigTitle() {
 
-    let title = document.createElement("h3")    
+    let title = document.createElement("h3")
     title.setAttribute("id", "customizing-headings")
     let text = document.createTextNode("Título");
     title.appendChild(text)
 
-    let subtitle = document.createElement("p")    
+    let subtitle = document.createElement("p")
     text = document.createTextNode("Sub título");
     subtitle.appendChild(text)
 
@@ -83,45 +130,89 @@
   }
 
   // Delete function
-	function deleteItem(id) {
-		console.log(id)
-		const element = document.getElementById(id);
-		element.remove();
-	}
+  function deleteItem(id) {
+    console.log(id)
+    const element = document.getElementById(id);
+    element.remove();
+  }
 
-	//Generate dinamic ic
-  function idGenerator() {		
-		return Math.random().toString(36).slice(2)	
+  //Generate dinamic ic
+  function idGenerator() {
+    return Math.random().toString(36).slice(2)
   }
 
   // Create buttons elements
-	function deleteButton(id) {
-		buttondlt = document.createElement("button")
-  	buttondlt.setAttribute("class", "btn btn-danger")
-  	buttondlt.setAttribute("id", id)
-  	buttondlt.setAttribute("onclick", "deleteItem(this.id)")
-  	buttondlt.textContent = 'Deletar';	
-		return buttondlt 	
-	}
+  function deleteButton(id) {
+    buttondlt = document.createElement("button")
+    buttondlt.setAttribute("class", "btn btn-danger")
+    buttondlt.setAttribute("id", id)
+    buttondlt.setAttribute("onclick", "deleteItem(this.id)")
+    buttondlt.textContent = 'Deletar';
+    return buttondlt
+  }
 
   // Append Elements in view
-	function appendDiv(...n) {
+  function appendDiv(...n) {
     const uid = idGenerator()
     let element = document.createElement("div");
     buttondlt = deleteButton(uid)
-  	element.setAttribute("id", uid)
-  	element.setAttribute("class", "featured")
+    element.setAttribute("id", uid)
+    element.setAttribute("class", "featured")
 
     n.forEach(e => {
-      element.appendChild(e);      
+      element.appendChild(e);
       element.appendChild(buttondlt);
     });
 
-  	// Add div in container
-  	content = document.getElementById("content")
-  	content.appendChild(element)  
-	}
+    // Add div in container
+    content = document.getElementById("content")
+    content.appendChild(element)
+  }
 
+  function createSlide() {
+    document.getElementById("content").innerHTML += `    
+      <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+            aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+            aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+            aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="https://source.unsplash.com/collection/190726/3000x900" class="d-block w-100" alt="image">
+            <div class="carousel-caption d-none d-md-block">
+              <h3 class="text-danger">First slide label</h3>
+              <p class="lead">Some representative placeholder content for the first slide.</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="https://source.unsplash.com/collection/190727/3000x900" class="d-block w-100" alt="image">
+            <div class="carousel-caption d-none d-md-block">
+              <h3 class="text-danger">Second slide label</h3>
+              <p class="lead">Some representative placeholder content for the second slide.</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="https://source.unsplash.com/collection/190726/3000x900" class="d-block w-100" alt="image">
+            <div class="carousel-caption d-none d-md-block">
+              <h3 class="text-danger">Third slide label</h3>
+              <p class="lead">Some representative placeholder content for the third slide.</p>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+          data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+          data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div> `
+  }
 </script>
-
-
