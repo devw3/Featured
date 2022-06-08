@@ -1,91 +1,127 @@
 <header>
-    <h1>FeaturedContent_index</h1>
+  <h1>FeaturedContent_index</h1>
 
-    <div class = "show_button">
-        <%= link_to "show", :show_path %>
-    </div>
+  <div class = "show_button">
+    <%= link_to "show", :show_path %>
+  </div>
 </header>
 
 <div class="container-fluid">
-    <div class="row flex-nowrap">
-        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
-            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
-                <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                    <span class="fs-5 d-none d-sm-inline">Menu</span>
-                </a>
-                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link align-middle px-0">
-                            <%= image_tag("fc-tarja", class: "fc-options") %>
-                        </a>
-                    </li>	
-                    
-                    <li class="nav-item">
-                        <a href="#" class="nav-link align-middle px-0">
-                            <%= image_tag("fc-big-title", class: "fc-options") %>
-                        </a>
-                    </li>	
+  <div class="row flex-nowrap">
+    <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
+      <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+        <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+          <span class="fs-5 d-none d-sm-inline">Menu</span>
+        </a>
+        <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+          <li class="nav-item">
+            <button onclick = "createStripe()"  class="nav-link align-middle px-0">
+              <%= image_tag("fc-tarja", class: "fc-options") %>
+            </button>
+          </li>
 
-                    <li class="nav-item">
-                        <a href="#" class="nav-link align-middle px-0">
-                            <%= image_tag("fc-slide", class: "fc-options") %>
-                        </a>
-                    </li>	
+          <li class="nav-item">
+            <button onclick = "createBigTitle()" class="nav-link align-middle px-0">
+              <%= image_tag("fc-big-title", class: "fc-options") %>
+            </button>
+          </li>
 
-                    <li class="nav-item">
-                        <a href="#" class="nav-link align-middle px-0">
-                            <%= image_tag("fc-image-in-block", class: "fc-options") %>
-                        </a>
-                    </li>	
-                </ul>					
-            </div>
-        </div>
+          <li class="nav-item">
+            <a href="#" class="nav-link align-middle px-0">
+              <%= image_tag("fc-slide", class: "fc-options") %>
+            </a>
+          </li>
 
-        <div class="col py-3" id="content">			
-            <div id="container-input" class="header-top__right">
-                <div class="header-top__right--row">
-                    <form id = "form_search"class="header-top__right--form" method="GET" action="/busca/resultados">
-                        <input id = "input" type="text" name="q" placeholder="BUSCAR" />
-
-                        <button id = "button">
-                            ok
-                        </button>
-                    </form>
-                </div>
-            </div>
-
-            Content area...
-        </div>
-        <script>
-            $( function() {
-                var availableTags = [
-                "ActionScript",
-                "AppleScript",
-                "Asp",
-                "BASIC",
-                "C",
-                "C++",
-                "Clojure",
-                "COBOL",
-                "ColdFusion",
-                "Erlang",
-                "Fortran",
-                "Groovy",
-                "Haskell",
-                "Java",
-                "JavaScript",
-                "Lisp",
-                "Perl",
-                "PHP",
-                "Python",
-                "Ruby",
-                "Scala",
-                "Scheme"
-                ];
-                $( "#input" ).autocomplete({
-                source: availableTags
-                });
-            } );
-        </script>
+          <li class="nav-item">
+            <a href="#" class="nav-link align-middle px-0">
+              <%= image_tag("fc-image-in-block", class: "fc-options") %>
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
+
+    <div class="col py-3" id="content">
+      <div id="container-input" class="header-top__right">
+        <div class="header-top__right--row">
+          <form class="header-top__right--form" method="GET" action="/busca/resultados">
+            <input type="text" name="q" placeholder="BUSCAR"/>
+            <button>
+              ok
+            </button>
+          </form>
+        </div>
+      </div>
+      Content area...
+    </div>
+  </div>
 </div>
+
+<script>
+  function createStripe() {	
+  	//Create strip
+  	let strip = document.createElement("div")
+  	strip.setAttribute("class", "p-3 mb-2 bg-dark text-white")
+    let text = document.createTextNode("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s");
+  	strip.appendChild(text);  
+		appendDiv(strip)
+  }
+
+  // Create Big title
+  function createBigTitle() {	
+
+    let title = document.createElement("h3")    
+    title.setAttribute("id", "customizing-headings")
+    let text = document.createTextNode("Título");
+    title.appendChild(text)
+
+    let subtitle = document.createElement("p")    
+    text = document.createTextNode("Sub título");
+    subtitle.appendChild(text)
+
+    appendDiv(title, subtitle)
+  }
+
+  // Delete function
+	function deleteItem(id) {
+		console.log(id)
+		const element = document.getElementById(id);
+		element.remove();
+	}
+
+	//Generate dinamic ic
+  function idGenerator() {		
+		return Math.random().toString(36).slice(2)	
+  }
+
+  // Create buttons elements
+	function deleteButton(id) {
+		buttondlt = document.createElement("button")
+  	buttondlt.setAttribute("class", "btn btn-danger")
+  	buttondlt.setAttribute("id", id)
+  	buttondlt.setAttribute("onclick", "deleteItem(this.id)")
+  	buttondlt.textContent = 'Deletar';	
+		return buttondlt 	
+	}
+
+  // Append Elements in view
+	function appendDiv(...n) {
+    const uid = idGenerator()
+    let element = document.createElement("div");
+    buttondlt = deleteButton(uid)
+  	element.setAttribute("id", uid)
+  	element.setAttribute("class", "featured")
+
+    n.forEach(e => {
+      element.appendChild(e);      
+      element.appendChild(buttondlt);
+    });
+
+  	// Add div in container
+  	content = document.getElementById("content")
+  	content.appendChild(element)  
+	}
+
+</script>
+
+

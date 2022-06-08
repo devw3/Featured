@@ -2,6 +2,10 @@ class PostController < ApplicationController
   def index
   end
 
+  def show
+    @post = Post.find(params[:id])
+  end
+
   def search
     @posts = Post.search(params[:title_search])
 
@@ -14,5 +18,7 @@ class PostController < ApplicationController
         ]
       end
     end
+
+    # https://blog.corsego.com/hotwire-turbo-streams-autocomplete-search
   end
 end

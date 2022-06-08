@@ -1,10 +1,10 @@
-<%= posts.count %>
+<%#= posts.count %>
 
-<% posts.each do |post| %>
+<% posts.each do |p| %>
   <br>
   
-  <%= link_to post do %>
-    <%= highlight(post.title, params.dig(:title_search)) %>
-
+  <%= link_to post_show_path(p.id) do %>
+    <%#= highlight(post.title, params.dig(:title_search)) %>
+    <%= p.title %>
   <% end %>
 <% end %>

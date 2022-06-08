@@ -19,4 +19,5 @@ Rails.application.routes.draw do
       post :search
     end
   end
+  get '/post/:id', to: 'post#show', as: 'post_show'
 end
