@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
-  get 'post/index'
-  get 'post/search'
+
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -20,4 +19,11 @@ Rails.application.routes.draw do
     end
   end
   get '/post/:id', to: 'post#show', as: 'post_show'
+
+  # Routes for FeaturedContent
+  resources :featured_content do 
+    collection do
+      post :search
+    end 
+  end
 end

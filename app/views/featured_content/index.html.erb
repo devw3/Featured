@@ -41,17 +41,8 @@
       </div>
     </div>
 
-    <div class="col py-3" id="content">
-      <div id="container-input" class="header-top__right">
-        <div class="header-top__right--row">
-          <form class="header-top__right--form" method="GET" action="/busca/resultados">
-            <input type="text" name="q" placeholder="BUSCAR"/>
-            <button>
-              ok
-            </button>
-          </form>
-        </div>
-      </div>
+      <%= render "featured_content/search_form" %>
+      
       Content area...
     </div>
   </div>
