@@ -106,12 +106,12 @@
     search_content.setAttribute("class", "search_content");
 
     search_content.innerHTML =
-      `<form action="/featured_content/search" accept-charset="UTF-8" method="post">`+
-      `<input type="hidden" name="authenticity_token" value="900YW6CMVh1ApJK8xCH8Z3jKVECwC61x1ACdMTAo30IbBVO7TX9uk8Gf9p02hNcg7s9j_uInfZtS5viqodhLYQ" autocomplete="off" />` +
-      `<input oninput="this.form.requestSubmit()" type="search" name="title_search" id="title_search" />` + 
-      `</form>` + 
-      `<div id="search_results">` + 
-      `</div>` 
+      `<form action="/featured_content/search" accept-charset="UTF-8" method="post">
+      <input type="hidden" name="authenticity_token" value="900YW6CMVh1ApJK8xCH8Z3jKVECwC61x1ACdMTAo30IbBVO7TX9uk8Gf9p02hNcg7s9j_uInfZtS5viqodhLYQ" autocomplete="off" />
+      <input oninput="this.form.requestSubmit()" type="search" name="title_search" id="title_search" />
+      </form>
+      <div id="search_results">
+      </div>` 
     ;
 
     return search_content;
@@ -125,12 +125,15 @@
     element.setAttribute("id", uid)
     element.setAttribute("class", "featured")
 
+    // Add attributes to the div
     n.forEach(e => {
-      element.appendChild(createSearchForm());
       element.appendChild(e);
-      element.appendChild(buttondlt);
     });
 
+    // Create button and search_form
+    element.appendChild(createSearchForm());
+    element.appendChild(buttondlt);
+    
     // Add div in container
     content = document.getElementById("content")
     content.appendChild(element)
