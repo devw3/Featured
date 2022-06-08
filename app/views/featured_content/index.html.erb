@@ -42,7 +42,7 @@
     </div>
     <div>
     <div class="col py-3" id="content">      
-      <%= render "featured_content/search_form" %>
+      <%#= render "featured_content/search_form" %>
       Content area...
     </div>
   </div>
@@ -58,8 +58,10 @@
     let strip = document.createElement("div")
     strip.setAttribute("class", "p-3 mb-2 bg-dark text-white")
     let text = document.createTextNode("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s");
+
     strip.appendChild(text);
     appendDiv(strip)
+    //appendDiv(createSearchForm());
   }
 
   // Create Big title
@@ -99,6 +101,22 @@
     return buttondlt
   }
 
+  function createSearchForm(){
+    let search_content = document.createElement("div");
+    search_content.setAttribute("class", "search_content");
+
+    search_content.innerHTML =
+      `<form action="/featured_content/search" accept-charset="UTF-8" method="post">`+
+      `<input type="hidden" name="authenticity_token" value="900YW6CMVh1ApJK8xCH8Z3jKVECwC61x1ACdMTAo30IbBVO7TX9uk8Gf9p02hNcg7s9j_uInfZtS5viqodhLYQ" autocomplete="off" />` +
+      `<input oninput="this.form.requestSubmit()" type="search" name="title_search" id="title_search" />` + 
+      `</form>` + 
+      `<div id="search_results">` + 
+      `</div>` 
+    ;
+
+    return search_content;
+  }
+
   // Append Elements in view
   function appendDiv(...n) {
     const uid = idGenerator()
@@ -108,6 +126,7 @@
     element.setAttribute("class", "featured")
 
     n.forEach(e => {
+      element.appendChild(createSearchForm());
       element.appendChild(e);
       element.appendChild(buttondlt);
     });
