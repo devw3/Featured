@@ -1,11 +1,6 @@
-<%#= posts.count %>
-
 <% posts.each do |p| %>
   <br>
-  <%=p.title%>
-  <%=raise%>
-  <%#= link_to post_show_path(p.id) do %>
-    <%#= highlight(p.title, params.dig(:title_search)) %>
-    <%#= p.title %>
-  <%# end %>
+  <p onclick = "print(<%=p.to_json%>)">
+      <%=p.title%> 
+  </p>
 <% end %>
