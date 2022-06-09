@@ -50,13 +50,19 @@
 
 <script>
 
-  function print(p){
-    console.log(p.title)
+  function setResult(title_in_json) {
+    var strip_element = document.getElementById("this_strip");
+    strip_element.innerHTML = '';
+
+    let text_strip = document.createTextNode(title_in_json);
+    strip_element.appendChild(text_strip);
   }
+
   function createStripe() {
     //Create strip
     let strip = document.createElement("div")
     strip.setAttribute("class", "p-3 mb-2 bg-dark text-white")
+    strip.setAttribute("id", "this_strip");
     let text = document.createTextNode("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s");
 
     strip.appendChild(text);
@@ -86,7 +92,7 @@
     element.remove();
   }
 
-  //Generate dinamic ic
+  //Generate dinamic id
   function idGenerator() {
     return Math.random().toString(36).slice(2)
   }
