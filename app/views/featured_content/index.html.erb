@@ -49,25 +49,27 @@
 </div>
 
 <script>
-  var test_id = "";
+  function findParent(current_element){
+    parent = current_element.parentNode.parentNode.parentNode.childNodes[0];
+    return parent.id.toString();
+  }
 
-  function setResult(title_in_json, test_id) {
-    console.log(title_in_json.toString());
-    console.log(test_id.toString());
-    var strip_element = document.getElementById(test_id);
-    strip_element.innerHTML = '';
+  function setResult(title_in_json, parent_id) {
+    console.log("title: " + title_in_json.toString());
+    console.log("parent id: " + parent_id);
+
+    var element = document.getElementById(parent_id);
+    element.innerHTML = '';
 
     let text_strip = document.createTextNode(title_in_json);
-    strip_element.appendChild(text_strip);
-
-    test_id = "";
+    element.appendChild(text_strip);
   }
 
   function createStripe() {
     //Create strip
     let strip = document.createElement("div")
     strip.setAttribute("class", "p-3 mb-2 bg-dark text-white")
-    test_id = idGenerator();
+    let test_id = idGenerator();
     strip.setAttribute("id", test_id);
     let text = document.createTextNode("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s");
 
@@ -113,17 +115,24 @@
     return buttondlt
   }
 
-  function createSearchForm(){
+  function createSearchForm(id){
     let search_content = document.createElement("div");
     search_content.setAttribute("class", "search_content");
+    //search_content.setAttribute("data-controller", "button-test");
+    search_content.setAttribute("id", id + "_search-content");
+
 
     search_content.innerHTML =
-      `<form action="/featured_content/search" accept-charset="UTF-8" method="post">
-      <input type="hidden" name="authenticity_token" value="900YW6CMVh1ApJK8xCH8Z3jKVECwC61x1ACdMTAo30IbBVO7TX9uk8Gf9p02hNcg7s9j_uInfZtS5viqodhLYQ" autocomplete="off" />
-      <input oninput="this.form.requestSubmit()" type="search" name="title_search" id="title_search" />
-      </form>
-      <div id="search_results">
-      </div>` 
+      `<div class = "search_content">
+      <% @params_div = "${id}_search_results" %>
+      <% params[:div_id] = @params_div %>
+      <%= form_with url: search_featured_content_index_path, method: :post do |form| %>
+      <%= form.search_field :title_search, value: params[:title_search], oninput: "this.form.requestSubmit()" %>
+      <%= form.hidden_field :div_id, value: params[:div_id] %>
+      <% end %>
+
+      <div id="${id}_search_results"></div>
+      </div>`
     ;
 
     return search_content;
@@ -143,7 +152,7 @@
     });
 
     // Create button and search_form
-    element.appendChild(createSearchForm());
+    element.appendChild(createSearchForm(uid));
     element.appendChild(buttondlt);
     
     // Add div in container

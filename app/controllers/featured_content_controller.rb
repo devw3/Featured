@@ -4,11 +4,12 @@ class FeaturedContentController < ApplicationController
 
   def search
     @posts = Post.search(params[:title_search])
-    #raise
+    @div_id = params[:div_id]
+
     respond_to do |format|
       format.turbo_stream do
         render turbo_stream: [
-          turbo_stream.update("search_results",
+          turbo_stream.update(@div_id,
           partial: "featured_content/search_results",
           locals: { posts: @posts })
         ]
