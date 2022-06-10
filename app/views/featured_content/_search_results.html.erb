@@ -1,6 +1,6 @@
 <% posts.each do |p| %>
   <br>
-  <p onclick = "setResult(<%= p.title.to_json %>), console.log(this.parentNode.parentNode.parentNode)">
+  <p onclick = "setResult(<%= p.title.to_json %>, test_id)">
     <%= p.title %> 
   </p>
 <% end %>

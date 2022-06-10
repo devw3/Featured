@@ -49,20 +49,26 @@
 </div>
 
 <script>
+  var test_id = "";
 
-  function setResult(title_in_json) {
-    var strip_element = document.getElementById("this_strip");
+  function setResult(title_in_json, test_id) {
+    console.log(title_in_json.toString());
+    console.log(test_id.toString());
+    var strip_element = document.getElementById(test_id);
     strip_element.innerHTML = '';
 
     let text_strip = document.createTextNode(title_in_json);
     strip_element.appendChild(text_strip);
+
+    test_id = "";
   }
 
   function createStripe() {
     //Create strip
     let strip = document.createElement("div")
     strip.setAttribute("class", "p-3 mb-2 bg-dark text-white")
-    strip.setAttribute("id", "this_strip");
+    test_id = idGenerator();
+    strip.setAttribute("id", test_id);
     let text = document.createTextNode("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s");
 
     strip.appendChild(text);
@@ -74,7 +80,7 @@
   function createBigTitle() {
 
     let title = document.createElement("h3")
-    title.setAttribute("id", "customizing-headings")
+    title.setAttribute("class", "customizing-headings")
     let text = document.createTextNode("Título");
     title.appendChild(text)
 
