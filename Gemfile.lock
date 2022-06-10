@@ -117,8 +117,8 @@ GEM
     faraday-em_synchrony (1.0.0)
     faraday-excon (1.1.0)
     faraday-httpclient (1.0.1)
-    faraday-multipart (1.0.3)
-      multipart-post (>= 1.2, < 3)
+    faraday-multipart (1.0.4)
+      multipart-post (~> 2)
     faraday-net_http (1.0.1)
     faraday-net_http_persistent (1.2.0)
     faraday-patron (1.0.0)
@@ -165,7 +165,7 @@ GEM
     minitest (5.15.0)
     msgpack (1.5.2)
     multi_json (1.15.0)
-    multipart-post (2.2.0)
+    multipart-post (2.2.2)
     nested_form (0.3.2)
     net-imap (0.2.3)
       digest
@@ -296,6 +296,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   kaminari
+  nokogiri (~> 1.6, >= 1.6.8)
   puma (~> 5.0)
   rails (~> 7.0.3)
   rails_admin

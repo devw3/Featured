@@ -4,7 +4,7 @@ class FeaturedContentController < ApplicationController
 
   def search
     @posts = Post.search(params[:title_search])
-    # raise
+    #raise
     respond_to do |format|
       format.turbo_stream do
         render turbo_stream: [

@@ -54,9 +54,9 @@ gem "bootsnap", require: false
 gem "searchkick"
 
 gem  "elasticsearch", "< 7.14"
-# gem "opensearch-ruby" # select one
 
 gem "kaminari"
+gem 'nokogiri', '~> 1.6', '>= 1.6.8'
 
 
 
