@@ -44,34 +44,62 @@
       <div class="col py-3" id="content">
         <%#= render "featured_content/search_form" %>
           Content area...
+          <%#console%>
       </div>
     </div>
   </div>
 </div>
 
 <script>
-  function findParent(current_element){
-    parent = current_element.parentNode.parentNode.parentNode.childNodes[0];
-    return parent.id.toString();
-  }
+  // Set values to the fields on the View
+  function setResult(element, content) {
+    // element = current object in json
+    // content = id of search content div
 
-  function setResult(title_in_json, parent_id) {
-    console.log("title: " + title_in_json.toString());
-    console.log("parent id: " + parent_id);
+    let featured = content.toString();
+    featured = document.getElementById(featured);
 
-    var element = document.getElementById(parent_id);
-    element.innerHTML = '';
+    let parent = featured.parentNode.id;
+    parent = document.getElementById(parent);
 
-    let text_strip = document.createTextNode(title_in_json);
-    element.appendChild(text_strip);
+    let childrens = parent.children.length;
+
+    for(let i = 0; i < childrens; i++)
+    {
+      if(parent.childNodes[i].getAttribute('id') == 'stripe')
+      {
+        parent.childNodes[i].innerHTML = '';
+
+        let text_stripe = document.createTextNode(element.title.toString());
+        parent.childNodes[i].appendChild(text_stripe);
+      }
+
+      else if(parent.childNodes[i].getAttribute('id') == 'bt-title')
+      {
+        parent.childNodes[i].innerHTML = '';
+
+        let big_title = document.createTextNode(element.title.toString());
+        parent.childNodes[i].appendChild(big_title);
+
+        i++;
+        // Increment the value of 'i' to access the sub title
+        if(parent.childNodes[i].getAttribute('id') == 'bt-subtitle')
+        {
+          parent.childNodes[i].innerHTML = '';
+
+          let sub_title = document.createTextNode('No subtitle added yet');
+          parent.childNodes[i].appendChild(sub_title);
+        } 
+      }
+    }
   }
 
   function createStripe() {
     //Create strip
     let strip = document.createElement("div")
     strip.setAttribute("class", "p-3 mb-2 bg-dark text-white")
-    let test_id = idGenerator();
-    strip.setAttribute("id", test_id);
+    //let stripe_id = idGenerator();
+    strip.setAttribute("id", "stripe");
     let text = document.createTextNode("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s");
 
     strip.appendChild(text);
@@ -84,10 +112,12 @@
 
     let title = document.createElement("h3")
     title.setAttribute("class", "customizing-headings")
+    title.setAttribute("id", "bt-title");
     let text = document.createTextNode("Título");
     title.appendChild(text)
 
     let subtitle = document.createElement("p")
+    subtitle.setAttribute("id", "bt-subtitle");
     text = document.createTextNode("Sub título");
     subtitle.appendChild(text)
 
@@ -119,141 +149,25 @@
   function createSearchForm(id){
     let search_content = document.createElement("div");
     search_content.setAttribute("class", "search_content");
-    //search_content.setAttribute("data-controller", "button-test");
     search_content.setAttribute("id", id + "_search-content");
 
 
-    search_content.innerHTML =
-      `<div class = "search_content">
-      <% @params_div = "${id}_search_results" %>
-      <% params[:div_id] = @params_div %>
-      <%= form_with url: search_featured_content_index_path, method: :post do |form| %>
-      <%= form.search_field :title_search, value: params[:title_search], oninput: "this.form.requestSubmit()" %>
-      <%= form.hidden_field :div_id, value: params[:div_id] %>
-      <% end %>
+    search_content.innerHTML = `
+      <% @params_div = "${id}_search-results" %>
+      <% params[:div_id] = @params_div %>  
 
-      <div id="${id}_search_results"></div>
-      </div>`
-    ;
+      <%= form_with url: search_featured_content_index_path, method: :post do |form| %> 
+        <%= form.search_field :title_search, value: params[:title_search], oninput: "this.form.requestSubmit()" %> 
+        <%= form.hidden_field :div_id, value: params[:div_id] %>  
+      <% end %> 
+
+      <div id="${id}_search-results"></div>
+    `;
 
     return search_content;
   }
 
-  // Append Elements in view
-  function appendDiv(...n) {
-    const uid = idGenerator()
-    let element = document.createElement("div");
-    buttondlt = deleteButton(uid)
-    element.setAttribute("id", uid)
-    element.setAttribute("class", "featured")
-
-    // Add attributes to the div
-    n.forEach(e => {
-      element.appendChild(e);
-    });
-
-    // Create button and search_form
-    element.appendChild(createSearchForm(uid));
-    element.appendChild(buttondlt);
-    
-    // Add div in container
-    content = document.getElementById("content")
-    content.appendChild(element)
-  }  
-</script>
-
-  <script>
-
-    function print(p) {
-      console.log(p.title)
-    }
-    function createStripe() {
-      //Create strip
-      let strip = document.createElement("div")
-      strip.setAttribute("class", "p-3 mb-2 bg-dark text-white")
-      let text = document.createTextNode("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s");
-
-      strip.appendChild(text);
-      appendDiv(strip)
-      //appendDiv(createSearchForm());
-    }
-
-    // Create Big title
-    function createBigTitle() {
-
-      let title = document.createElement("h3")
-      title.setAttribute("id", "customizing-headings")
-      let text = document.createTextNode("Título");
-      title.appendChild(text)
-
-      let subtitle = document.createElement("p")
-      text = document.createTextNode("Sub título");
-      subtitle.appendChild(text)
-
-      appendDiv(title, subtitle)
-    }
-
-    // Delete function
-    function deleteItem(id) {
-      console.log(id)
-      const element = document.getElementById(id);
-      element.remove();
-    }
-
-    //Generate dinamic ic
-    function idGenerator() {
-      return Math.random().toString(36).slice(2)
-    }
-
-    // Create buttons elements
-    function deleteButton(id) {
-      buttondlt = document.createElement("button")
-      buttondlt.setAttribute("class", "btn btn-danger")
-      buttondlt.setAttribute("id", id)
-      buttondlt.setAttribute("onclick", "deleteItem(this.id)")
-      buttondlt.textContent = 'Deletar';
-      return buttondlt
-    }
-
-    function createSearchForm() {
-      let search_content = document.createElement("div");
-      search_content.setAttribute("class", "search_content");
-
-      search_content.innerHTML =
-        `<form action="/featured_content/search" accept-charset="UTF-8" method="post">
-      <input type="hidden" name="authenticity_token" value="900YW6CMVh1ApJK8xCH8Z3jKVECwC61x1ACdMTAo30IbBVO7TX9uk8Gf9p02hNcg7s9j_uInfZtS5viqodhLYQ" autocomplete="off" />
-      <input oninput="this.form.requestSubmit()" type="search" name="title_search" id="title_search" />
-      </form>
-      <div id="search_results">
-      </div>`
-        ;
-
-      return search_content;
-    }
-
-    // Append Elements in view
-    function appendDiv(...n) {
-      const uid = idGenerator()
-      let element = document.createElement("div");
-      buttondlt = deleteButton(uid)
-      element.setAttribute("id", uid)
-      element.setAttribute("class", "featured")
-
-      // Add attributes to the div
-      n.forEach(e => {
-        element.appendChild(e);
-      });
-
-      // Create button and search_form
-      element.appendChild(createSearchForm());
-      element.appendChild(buttondlt);
-
-      // Add div in container
-      content = document.getElementById("content")
-      content.appendChild(element)
-    }
-
-    function createSlide() {
+  function createSlide() {
       const uid = idGenerator()
 
       document.getElementById("content").innerHTML += `    
@@ -329,4 +243,25 @@
             }
         }
 
-  </script>
+  // Append Elements in view
+  function appendDiv(...n) {
+    const uid = idGenerator()
+    let element = document.createElement("div");
+    buttondlt = deleteButton(uid)
+    element.setAttribute("id", uid)
+    element.setAttribute("class", "featured")
+
+    // Add attributes to the div
+    n.forEach(e => {
+      element.appendChild(e);
+    });
+
+    // Create button and search_form
+    element.appendChild(createSearchForm(uid));
+    element.appendChild(buttondlt);
+    
+    // Add div in container
+    content = document.getElementById("content")
+    content.appendChild(element)
+  }  
+</script>
