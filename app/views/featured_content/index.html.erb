@@ -1,11 +1,9 @@
 <header>
   <h1>FeaturedContent_index</h1>
-
   <div class="show_button">
     <%= link_to "show" , :show_path %>
   </div>
 </header>
-
 <div class="container-fluid">
   <div class="row flex-nowrap">
     <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
@@ -19,19 +17,16 @@
               <%= image_tag("fc-tarja", class: "fc-options" ) %>
             </button>
           </li>
-
           <li class="nav-item">
             <button onclick="createBigTitle()" class="nav-link align-middle px-0">
               <%= image_tag("fc-big-title", class: "fc-options" ) %>
             </button>
           </li>
-
           <li class="nav-item">
             <button onclick="createSlide()" class="nav-link align-middle px-0">
               <%= image_tag("fc-slide", class: "fc-options" ) %>
             </button>
           </li>
-
           <li class="nav-item">
             <a href="#" class="nav-link align-middle px-0">
               <%= image_tag("fc-image-in-block", class: "fc-options" ) %>
@@ -43,57 +38,46 @@
     <div>
       <div class="col py-3" id="content">
         <%#= render "featured_content/search_form" %>
-          Content area...
-          <%#console%>
+        Content area...
+        <%#console%>
       </div>
     </div>
   </div>
 </div>
-
 <script>
   // Set values to the fields on the View
   function setResult(element, content) {
     // element = current object in json
     // content = id of search content div
-
     let featured = content.toString();
     featured = document.getElementById(featured);
-
     let parent = featured.parentNode.id;
     parent = document.getElementById(parent);
-
     let childrens = parent.children.length; // just for count;
-
     for(let i = 0; i < childrens; i++)
     {
       if(parent.childNodes[i].getAttribute('id') == 'stripe')
       {
         parent.childNodes[i].innerHTML = '';
-
         let text_stripe = document.createTextNode(element.title.toString());
         parent.childNodes[i].appendChild(text_stripe);
       }
-
       else if(parent.childNodes[i].getAttribute('id') == 'bt-title')
       {
         parent.childNodes[i].innerHTML = '';
-
         let big_title = document.createTextNode(element.title.toString());
         parent.childNodes[i].appendChild(big_title);
-
         i++;
         // Increment the value of 'i' to access the sub title
         if(parent.childNodes[i].getAttribute('id') == 'bt-subtitle')
         {
           parent.childNodes[i].innerHTML = '';
-
           let sub_title = document.createTextNode('No subtitle added yet');
           parent.childNodes[i].appendChild(sub_title);
-        } 
+        }
       }
     }
   }
-
   function createStripe() {
     //Create strip
     let strip = document.createElement("div")
@@ -101,29 +85,23 @@
     //let stripe_id = idGenerator();
     strip.setAttribute("id", "stripe");
     let text = document.createTextNode("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s");
-
     strip.appendChild(text);
     appendDiv(strip)
     //appendDiv(createSearchForm());
   }
-
   // Create Big title
   function createBigTitle() {
-
     let title = document.createElement("h3")
     title.setAttribute("class", "customizing-headings")
     title.setAttribute("id", "bt-title");
     let text = document.createTextNode("Título");
     title.appendChild(text)
-
     let subtitle = document.createElement("p")
     subtitle.setAttribute("id", "bt-subtitle");
     text = document.createTextNode("Sub título");
     subtitle.appendChild(text)
-
     appendDiv(title, subtitle)
   }
-
   // Delete function
   function deleteItem(id) {
     console.log(id)
@@ -131,10 +109,22 @@
     element.remove();
   }
 
+  	 // Delete Slide function
+  		 function delSlide(id) {
+      let indicator = document.getElementById("btnIndicator" + id);
+      let inner= document.getElementById("carrouselId" + id);
+      indicator.remove();
+      inner.remove();
+    }
+
   //Generate dinamic id
   function idGenerator() {
     return Math.random().toString(36).slice(2)
   }
+  		//Generate dinamic id
+  		function idGeneratorImg() {
+  			return Math.random().toString(36).slice(2)
+    }
 
   // Create buttons elements
   function deleteButton(id) {
@@ -145,167 +135,32 @@
     buttondlt.textContent = 'Deletar';
     return buttondlt
   }
-
   function createSearchForm(id){
     let search_content = document.createElement("div");
     search_content.setAttribute("class", "search_content");
     search_content.setAttribute("id", id + "_search-content");
-
-
     search_content.innerHTML = `
       <% @params_div = "${id}_search-results" %>
-      <% params[:div_id] = @params_div %>  
-
-      <%= form_with url: search_featured_content_index_path, method: :post do |form| %> 
-        <%= form.search_field :title_search, value: params[:title_search], oninput: "this.form.requestSubmit()" %> 
-        <%= form.hidden_field :div_id, value: params[:div_id] %>  
-      <% end %> 
-
+      <% params[:div_id] = @params_div %>
+      <%= form_with url: search_featured_content_index_path, method: :post do |form| %>
+        <%= form.search_field :title_search, value: params[:title_search], oninput: "this.form.requestSubmit()" %>
+        <%= form.hidden_field :div_id, value: params[:div_id] %>
+      <% end %>
       <div id="${id}_search-results"></div>
     `;
-
     return search_content;
   }
-
-  // Append Elements in view
-  function appendDiv(...n) {
-    const uid = idGenerator()
-    let element = document.createElement("div");
-    buttondlt = deleteButton(uid)
-    element.setAttribute("id", uid)
-    element.setAttribute("class", "featured")
-
-    // Add attributes to the div
-    n.forEach(e => {
-      element.appendChild(e);
-    });
-
-    // Create button and search_form
-    element.appendChild(createSearchForm(uid));
-    element.appendChild(buttondlt);
-    
-    // Add div in container
-    content = document.getElementById("content")
-    content.appendChild(element)
-  }  
-</script>
-
-  <script>
-
-    function print(p) {
-      console.log(p.title)
-    }
-    function createStripe() {
-      //Create strip
-      let strip = document.createElement("div")
-      strip.setAttribute("class", "p-3 mb-2 bg-dark text-white")
-      let text = document.createTextNode("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s");
-
-      strip.appendChild(text);
-      appendDiv(strip)
-      //appendDiv(createSearchForm());
-    }
-
-    // Create Big title
-    function createBigTitle() {
-
-      let title = document.createElement("h3")
-      title.setAttribute("id", "customizing-headings")
-      let text = document.createTextNode("Título");
-      title.appendChild(text)
-
-      let subtitle = document.createElement("p")
-      text = document.createTextNode("Sub título");
-      subtitle.appendChild(text)
-
-      appendDiv(title, subtitle)
-    }
-
-    // Delete function
-    function deleteItem(id) {
-      console.log(id)
-      const element = document.getElementById(id);
-      element.remove();
-    }
-
-		 // Delete Slide function
-		 function delSlide(id) {		 
-      let indicator = document.getElementById("btnIndicator" + id);
-      let inner= document.getElementById("carrouselId" + id);
-      indicator.remove();
-      inner.remove();
-    }
-
-
-    //Generate dinamic id
-    function idGenerator() {
-      return Math.random().toString(36).slice(2)
-    }
-
-		//Generate dinamic id
-		function idGeneratorImg() {
-			return Math.random().toString(36).slice(2)
-    }
-
-    // Create buttons elements
-    function deleteButton(id) {
-      buttondlt = document.createElement("button")
-      buttondlt.setAttribute("class", "btn btn-danger")
-      buttondlt.setAttribute("id", id)
-      buttondlt.setAttribute("onclick", "deleteItem(this.id)")
-      buttondlt.textContent = 'Deletar';
-      return buttondlt
-    }
-
-    function createSearchForm() {
-      let search_content = document.createElement("div");
-      search_content.setAttribute("class", "search_content");
-
-      search_content.innerHTML =
-        `<form action="/featured_content/search" accept-charset="UTF-8" method="post">
-      <input type="hidden" name="authenticity_token" value="900YW6CMVh1ApJK8xCH8Z3jKVECwC61x1ACdMTAo30IbBVO7TX9uk8Gf9p02hNcg7s9j_uInfZtS5viqodhLYQ" autocomplete="off" />
-      <input oninput="this.form.requestSubmit()" type="search" name="title_search" id="title_search" />
-      </form>
-      <div id="search_results">
-      </div>`
-        ;
-
-      return search_content;
-    }
-
-    // Append Elements in view
-    function appendDiv(...n) {
-      const uid = idGenerator()
-      let element = document.createElement("div");
-      buttondlt = deleteButton(uid)
-      element.setAttribute("id", uid)
-      element.setAttribute("class", "featured")
-
-      // Add attributes to the div
-      n.forEach(e => {
-        element.appendChild(e);
-      });
-
-      // Create button and search_form
-      element.appendChild(createSearchForm());
-      element.appendChild(buttondlt);
-
-      // Add div in container
-      content = document.getElementById("content")
-      content.appendChild(element)
-    }
-
-		// Create Slide Function
+   	// Create Slide Function
     function createSlide() {
       let uid = idGenerator()
-		  let img_id = idGeneratorImg()
+  		  let img_id = idGeneratorImg()
 
-      document.getElementById("content").innerHTML += `    
+      document.getElementById("content").innerHTML += `
       <div id="${uid}" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators" id="indicator${uid}">
           <button type="button" data-bs-target="#${uid}" data-bs-slide-to="0" class="active"
             aria-current="true" aria-label="Slide 1">
-          </button>        
+          </button>
         </div>
         <div class="carousel-inner" id="inner${uid}">
           <div class="carousel-item active">
@@ -315,7 +170,7 @@
               <p class="lead">Some representative placeholder content for the first slide.</p>
               <input id="${img_id}" type='file' onchange="readURL(this);" />
             </div>
-          </div>        
+          </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#${uid}"
           data-bs-slide="prev">
@@ -327,16 +182,15 @@
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Next</span>
         </button>
-      </div> 
+      </div>
       <button id= "${uid}" onclick= "addSlide(this.id)">Adicionar + </button>
       <button id= "${uid}" onclick= "delSlide(this.id)">Deletar - </button>
       `
     }
-
-		// Add Slide in div slide
+   	// Add Slide in div slide
     function addSlide(uid) {
       id = uid
-			let img_id = idGeneratorImg()
+  			let img_id = idGeneratorImg()
 
       let = div =  document.getElementById("indicator" + id)
 
@@ -346,36 +200,36 @@
 
       let cont = parseInt(last.getAttributeNode("data-bs-slide-to").value)
 
-      document.getElementById("indicator" + id).innerHTML += `        
+      document.getElementById("indicator" + id).innerHTML += `
         <button id = "btnIndicator${uid}" type="button" data-bs-target="#${id}" data-bs-slide-to="${cont + 1}"
         aria-label="Slide ${cont + 2}">
-        </button>       
+        </button>
       `
 
-      document.getElementById("inner" + id).innerHTML += ` 
+      document.getElementById("inner" + id).innerHTML += `
       <div id = "carrouselId${uid}" class="carousel-item">
         <img id="img${img_id}" src="https://source.unsplash.com/collection/190727/3000x900" class="d-block w-100" alt="image">
         <div class="carousel-caption d-none d-md-block">
           <h3 class="text-danger">${cont + 1}Second slide label</h3>
           <p class="lead">Some representative placeholder content for the second slide.</p>
-					<input id="${img_id}" type='file' onchange="readURL(this);" />
+  					<input id="${img_id}" type='file' onchange="readURL(this);" />
         </div>
       </div>
       `
     }
 
-		// Upload Image for slide
+  		// Upload Image for slide
     function readURL(input) {
-			let id = "#" + "img" + input.id
-			if (input.files && input.files[0]) {
-				var reader = new FileReader();
-				reader.onload = function (e) {
-					$(id)
-					.attr('src', e.target.result);
-				};
-				reader.readAsDataURL(input.files[0]);
-			}
-		}
+  			let id = "#" + "img" + input.id
+  			if (input.files && input.files[0]) {
+  				var reader = new FileReader();
+  				reader.onload = function (e) {
+  					$(id)
+  					.attr('src', e.target.result);
+  				};
+  				reader.readAsDataURL(input.files[0]);
+  			}
+  		}
 
   // Append Elements in view
   function appendDiv(...n) {
@@ -384,18 +238,15 @@
     buttondlt = deleteButton(uid)
     element.setAttribute("id", uid)
     element.setAttribute("class", "featured")
-
     // Add attributes to the div
     n.forEach(e => {
       element.appendChild(e);
     });
-
     // Create button and search_form
     element.appendChild(createSearchForm(uid));
     element.appendChild(buttondlt);
-    
     // Add div in container
     content = document.getElementById("content")
     content.appendChild(element)
-  }  
+  }
 </script>
