@@ -48,7 +48,7 @@
   function getParents(paragraph)
   {
     let p_element = document.getElementsByClassName(paragraph.className)[0];
-    p_element = p_element.parentNode.parentNode.parentNode.id; 
+    p_element = p_element.parentNode.parentNode.parentNode.id;
 
     let featured_class = document.getElementById(p_element);
     return featured_class.id.toString();
@@ -88,7 +88,7 @@
 
           let sub_title = document.createTextNode('No subtitle added yet');
           featured.childNodes[i].appendChild(sub_title);
-        } 
+        }
       }
     }
   }
