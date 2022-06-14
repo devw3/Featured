@@ -51,44 +51,49 @@
 </div>
 
 <script>
+  function getParents(paragraph)
+  {
+    let p_element = document.getElementsByClassName(paragraph.className)[0];
+    p_element = p_element.parentNode.parentNode.parentNode.id; 
+
+    let featured_class = document.getElementById(p_element);
+    return featured_class.id.toString();
+  }
+
   // Set values to the fields on the View
   function setResult(element, content) {
     // element = current object in json
     // content = id of search content div
 
-    let featured = content.toString();
-    featured = document.getElementById(featured);
+    let featured = document.getElementById(content);
 
-    let parent = featured.parentNode.id;
-    parent = document.getElementById(parent);
-
-    let childrens = parent.children.length; // just for count;
+    let childrens = featured.children.length; // just for count;
 
     for(let i = 0; i < childrens; i++)
     {
-      if(parent.childNodes[i].getAttribute('id') == 'stripe')
+      if(featured.childNodes[i].getAttribute('id') == 'stripe')
       {
-        parent.childNodes[i].innerHTML = '';
+        featured.childNodes[i].innerHTML = '';
 
         let text_stripe = document.createTextNode(element.title.toString());
-        parent.childNodes[i].appendChild(text_stripe);
+        featured.childNodes[i].appendChild(text_stripe);
       }
 
-      else if(parent.childNodes[i].getAttribute('id') == 'bt-title')
+      else if(featured.childNodes[i].getAttribute('id') == 'bt-title')
       {
-        parent.childNodes[i].innerHTML = '';
+        featured.childNodes[i].innerHTML = '';
 
         let big_title = document.createTextNode(element.title.toString());
-        parent.childNodes[i].appendChild(big_title);
+        featured.childNodes[i].appendChild(big_title);
 
         i++;
         // Increment the value of 'i' to access the sub title
-        if(parent.childNodes[i].getAttribute('id') == 'bt-subtitle')
+        if(featured.childNodes[i].getAttribute('id') == 'bt-subtitle')
         {
-          parent.childNodes[i].innerHTML = '';
+          featured.childNodes[i].innerHTML = '';
 
           let sub_title = document.createTextNode('No subtitle added yet');
-          parent.childNodes[i].appendChild(sub_title);
+          featured.childNodes[i].appendChild(sub_title);
         } 
       }
     }
@@ -149,7 +154,7 @@
   function createSearchForm(id){
     let search_content = document.createElement("div");
     search_content.setAttribute("class", "search_content");
-    search_content.setAttribute("id", id + "_search-content");
+    //search_content.setAttribute("id", id + "_search-content");
 
 
     search_content.innerHTML = `

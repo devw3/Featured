@@ -8,14 +8,16 @@ class PostController < ApplicationController
   end
 
   def search
-    @posts = Post.search(params[:title_search])
-    @div_id = params[:div_id]
+    title_search = params[:title_search]
+    search_results = params[:div_id]
+
+    @posts = Post.search(title_search)
 
     #raise
     respond_to do |format|
       format.turbo_stream do
         render turbo_stream: [
-          turbo_stream.update(@div_id,
+          turbo_stream.update(search_results,
           partial: "post/search_results",
           locals: { posts: @posts })
         ]

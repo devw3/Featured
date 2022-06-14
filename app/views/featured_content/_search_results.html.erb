@@ -1,6 +1,6 @@
 <% posts.each do |p| %>
   <br>
-  <button class = <%= rand(1..100) %> onclick = "setResult(<%= p.to_json %>, <%= @content_id.to_json %>)" >
+  <button class = <%= rand(1..100) %> onclick = "setResult(<%= p.to_json %>, getParents(this))" >
     <%= p.title %>
   </button>
 <% end %>
