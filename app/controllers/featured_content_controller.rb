@@ -5,6 +5,7 @@ class FeaturedContentController < ApplicationController
   def search
     @posts = Post.search(params[:title_search])
     @div_id = params[:div_id]
+    @content_id = getContent(@div_id)
 
     respond_to do |format|
       format.turbo_stream do
@@ -17,6 +18,13 @@ class FeaturedContentController < ApplicationController
     end
 
     # https://blog.corsego.com/hotwire-turbo-streams-autocomplete-search
+  end
+
+  def getContent(search_results)
+    content = search_results
+    content.gsub!('results', 'content')
+
+    return content.to_s
   end
 
   def show
