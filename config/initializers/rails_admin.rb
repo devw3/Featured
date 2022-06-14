@@ -43,6 +43,7 @@ RailsAdmin.config do |config|
       end
       edit do
         field :title
+        field :sub_title
       end
     end
 

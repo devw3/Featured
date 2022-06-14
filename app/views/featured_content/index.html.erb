@@ -86,8 +86,11 @@
         {
           featured.childNodes[i].innerHTML = '';
 
-          let sub_title = document.createTextNode('No subtitle added yet');
-          featured.childNodes[i].appendChild(sub_title);
+          if(element.sub_title.toString() !== null || element.sub_title.toString() === '')
+          {
+            let sub_title = document.createTextNode(element.sub_title.toString());
+            featured.childNodes[i].appendChild(sub_title);
+          }
         }
       }
     }

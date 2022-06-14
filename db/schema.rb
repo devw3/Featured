@@ -39,6 +39,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_03_204053) do
 
   create_table "posts", force: :cascade do |t|
     t.string "title"
+    t.string "sub_title"
     t.string "slug"
     t.boolean "status"
     t.datetime "date_publish"
