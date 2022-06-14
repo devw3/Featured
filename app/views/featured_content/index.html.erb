@@ -37,9 +37,36 @@
     </div>
     <div>
       <div class="col py-3" id="content">
-        <%#= render "featured_content/search_form" %>
+        <!--init slid-->
+        <div class="slider">
+          <div class="slide">
+            <div class="slide__item">slide 1</div>
+          </div>
+          <div class="slide">
+            <div class="slide__item">slide 2</div>
+          </div>
+          <div class="slide">
+            <div class="slide__item">slide 3</div>
+          </div>
+          <div class="slide">
+            <div class="slide__item">slide 4</div>
+          </div>
+          <div class="slide">
+            <div class="slide__item">slide 5</div>
+          </div>
+          <div class="slide">
+            <div class="slide__item">slide 6</div>
+          </div>
+
+        </div>
+
+        <h3>Custom markup</h3>
+        <button class="prev">Prev</button>
+        <button class="next">Next</button>
+
+        <!--end slid-->
         Content area...
-        <%#console%>
+
       </div>
     </div>
   </div>
@@ -126,7 +153,7 @@
   //Generate dinamic id
   function idGenerator() {
     return Math.random().toString(36).slice(2)
-  }  	
+  }
 
   // Create buttons elements
   function deleteButton(id) {
@@ -153,9 +180,9 @@
       <div id="${id}_search-results"></div>
     `;
     return search_content;
-  }    
+  }
 
-  
+
   // Append Elements in view
   function appendDiv(...n) {
     const uid = idGenerator()
