@@ -123,22 +123,10 @@
     element.remove();
   }
 
-  	 // Delete Slide function
-  		 function delSlide(id) {
-      let indicator = document.getElementById("btnIndicator" + id);
-      let inner= document.getElementById("carrouselId" + id);
-      indicator.remove();
-      inner.remove();
-    }
-
   //Generate dinamic id
   function idGenerator() {
     return Math.random().toString(36).slice(2)
-  }
-  		//Generate dinamic id
-  		function idGeneratorImg() {
-  			return Math.random().toString(36).slice(2)
-    }
+  }  	
 
   // Create buttons elements
   function deleteButton(id) {
@@ -165,88 +153,9 @@
       <div id="${id}_search-results"></div>
     `;
     return search_content;
-  }
-   	// Create Slide Function
-    function createSlide() {
-      let uid = idGenerator()
-  		  let img_id = idGeneratorImg()
+  }    
 
-      document.getElementById("content").innerHTML += `
-      <div id="${uid}" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-indicators" id="indicator${uid}">
-          <button type="button" data-bs-target="#${uid}" data-bs-slide-to="0" class="active"
-            aria-current="true" aria-label="Slide 1">
-          </button>
-        </div>
-        <div class="carousel-inner" id="inner${uid}">
-          <div class="carousel-item active">
-            <img id="img${img_id}" src="https://source.unsplash.com/collection/190726/3000x900" class="d-block w-100" alt="image">
-            <div class="carousel-caption d-none d-md-block">
-              <h3 class="text-danger">0 First slide label</h3>
-              <p class="lead">Some representative placeholder content for the first slide.</p>
-              <input id="${img_id}" type='file' onchange="readURL(this);" />
-            </div>
-          </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#${uid}"
-          data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#${uid}"
-          data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
-      </div>
-      <button id= "${uid}" onclick= "addSlide(this.id)">Adicionar + </button>
-      <button id= "${uid}" onclick= "delSlide(this.id)">Deletar - </button>
-      `
-    }
-   	// Add Slide in div slide
-    function addSlide(uid) {
-      id = uid
-  			let img_id = idGeneratorImg()
-
-      let = div =  document.getElementById("indicator" + id)
-
-      let nodes = div.querySelectorAll('button');
-      let first = nodes[0];
-      let last = nodes[nodes.length- 1];
-
-      let cont = parseInt(last.getAttributeNode("data-bs-slide-to").value)
-
-      document.getElementById("indicator" + id).innerHTML += `
-        <button id = "btnIndicator${uid}" type="button" data-bs-target="#${id}" data-bs-slide-to="${cont + 1}"
-        aria-label="Slide ${cont + 2}">
-        </button>
-      `
-
-      document.getElementById("inner" + id).innerHTML += `
-      <div id = "carrouselId${uid}" class="carousel-item">
-        <img id="img${img_id}" src="https://source.unsplash.com/collection/190727/3000x900" class="d-block w-100" alt="image">
-        <div class="carousel-caption d-none d-md-block">
-          <h3 class="text-danger">${cont + 1}Second slide label</h3>
-          <p class="lead">Some representative placeholder content for the second slide.</p>
-  					<input id="${img_id}" type='file' onchange="readURL(this);" />
-        </div>
-      </div>
-      `
-    }
-
-  		// Upload Image for slide
-    function readURL(input) {
-  			let id = "#" + "img" + input.id
-  			if (input.files && input.files[0]) {
-  				var reader = new FileReader();
-  				reader.onload = function (e) {
-  					$(id)
-  					.attr('src', e.target.result);
-  				};
-  				reader.readAsDataURL(input.files[0]);
-  			}
-  		}
-
+  
   // Append Elements in view
   function appendDiv(...n) {
     const uid = idGenerator()
