@@ -38,31 +38,41 @@
     <div>
       <div class="col py-3" id="content">
         <!--init slid-->
-        <div class="slider">
-          <div class="slide">
-            <div class="slide__item">slide 1</div>
+        <button id="addSlide">Add</button>
+
+        <!-- Carousel wrapper -->
+        <div class="rpCarousel">
+
+          <!-- Carousel holder -->
+          <div id='carousel-example-generic' class='carousel slide' data-ride='carousel'>
+            <!-- Indicators -->
+            <ol class='carousel-indicators'>
+              <li class="active" id="ciIndicator0" data-target='#carousel-example-generic' data-slide-to='0'></li>
+            </ol>
+            <!-- /Indicators -->
+
+            <!-- Wrapper for slides -->
+            <div class='carousel-inner'>
+              <div id="ciItem0" class='item active'><img src='https://source.unsplash.com/collection/190726/3000x900'
+                  alt='' />
+              </div>
+            </div>
+            <!-- /Wrapper for slides -->
+
+            <!-- Controls -->
+            <a class='left carousel-control' href='#carousel-example-generic' data-slide='prev'><span
+                class='glyphicon glyphicon-chevron-left'></span></a>
+            <a class='right carousel-control' href='#carousel-example-generic' data-slide='next'><span
+                class='glyphicon glyphicon-chevron-right'></span></a>
+            <!-- /Controls -->
+
           </div>
-          <div class="slide">
-            <div class="slide__item">slide 2</div>
-          </div>
-          <div class="slide">
-            <div class="slide__item">slide 3</div>
-          </div>
-          <div class="slide">
-            <div class="slide__item">slide 4</div>
-          </div>
-          <div class="slide">
-            <div class="slide__item">slide 5</div>
-          </div>
-          <div class="slide">
-            <div class="slide__item">slide 6</div>
-          </div>
+          <!-- /Carousel holder -->
+
+          <div id="removeItemContainer"></div>
 
         </div>
-
-        <h3>Custom markup</h3>
-        <button class="prev">Prev</button>
-        <button class="next">Next</button>
+        <!-- /Carousel wrapper -->
 
         <!--end slid-->
         Content area...
@@ -71,9 +81,49 @@
     </div>
   </div>
 </div>
+
+<style>
+  .rpCarousel {
+    width: 400px;
+    margin: auto;
+  }
+
+  .item {
+    position: relative;
+  }
+
+  a.remove {
+    position: absolute;
+    top: 0;
+    left: 100px;
+    z-index: 999;
+  }
+</style>
+
 <script>
-  function getParents(paragraph)
-  {
+  $(window).load(function () {
+    $('#carousel-example-generic').carousel('pause');
+  });
+
+  var count = 1;
+  $("#addSlide").click(function () {
+    var carouselIndicators = "<li id='ciIndicator" + count + "' data-target='#carousel-example-generic' data-slide-to='" + count + "'></li>";
+    var carouselItem = "<div id='ciItem" + count + "' class='item'><img src='https://source.unsplash.com/collection/190726/3000x900 " + count + "' alt='' /></div>";
+    var removeItem = "<button id='ciBtnRemove" + count + "' onclick=foo('" + count + "')>Remove slide " + count + "</button>";
+    $("ol.carousel-indicators").append(carouselIndicators);
+    $(".carousel-inner").append(carouselItem);
+    $("#removeItemContainer").append(removeItem);
+    count++;
+  });
+
+  function foo(which) {
+    $("#ciIndicator" + which).remove();
+    $("#ciItem" + which).remove();
+    $("#ciBtnRemove" + which).remove();
+  }
+
+
+  function getParents(paragraph) {
     let p_element = document.getElementsByClassName(paragraph.className)[0];
     p_element = p_element.parentNode.parentNode.parentNode.id;
 
@@ -90,18 +140,15 @@
 
     let childrens = featured.children.length; // just for count;
 
-    for(let i = 0; i < childrens; i++)
-    {
-      if(featured.childNodes[i].getAttribute('id') == 'stripe')
-      {
+    for (let i = 0; i < childrens; i++) {
+      if (featured.childNodes[i].getAttribute('id') == 'stripe') {
         featured.childNodes[i].innerHTML = '';
 
         let text_stripe = document.createTextNode(element.title.toString());
         featured.childNodes[i].appendChild(text_stripe);
       }
 
-      else if(featured.childNodes[i].getAttribute('id') == 'bt-title')
-      {
+      else if (featured.childNodes[i].getAttribute('id') == 'bt-title') {
         featured.childNodes[i].innerHTML = '';
 
         let big_title = document.createTextNode(element.title.toString());
@@ -109,12 +156,10 @@
 
         i++;
         // Increment the value of 'i' to access the sub title
-        if(featured.childNodes[i].getAttribute('id') == 'bt-subtitle')
-        {
+        if (featured.childNodes[i].getAttribute('id') == 'bt-subtitle') {
           featured.childNodes[i].innerHTML = '';
 
-          if(element.sub_title.toString() !== null || element.sub_title.toString() === '')
-          {
+          if (element.sub_title.toString() !== null || element.sub_title.toString() === '') {
             let sub_title = document.createTextNode(element.sub_title.toString());
             featured.childNodes[i].appendChild(sub_title);
           }
@@ -167,7 +212,7 @@
     buttondlt.textContent = 'Deletar';
     return buttondlt
   }
-  function createSearchForm(id){
+  function createSearchForm(id) {
     let search_content = document.createElement("div");
     search_content.setAttribute("class", "search_content");
     //search_content.setAttribute("id", id + "_search-content");
