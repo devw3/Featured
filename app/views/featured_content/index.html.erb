@@ -121,7 +121,40 @@
     $("#ciItem" + which).remove();
     $("#ciBtnRemove" + which).remove();
   }
+  // bogeyman  ⤵
+  // Clear the form after setResult on the featured
+  function clearForm(featured)
+  {
+    let count = featured.children.length;
+    
+    for(let i = 0; i < count; i++)  
+    {
+      // find search_content
+      if(featured.childNodes[i].className == 'search_content')
+      {
+        let count_sc = featured.childNodes[i].children.length;
 
+        for(let j = 0; j < count_sc; j++)
+        {
+          // find the form
+          if(featured.childNodes[i].childNodes[j].id == 'my_form')
+          {
+            let count_f = featured.childNodes[i].childNodes[j].children.length;
+
+            for(let q = 0; q < count_f; q++)
+            {
+              // clear the title_search value and submit an empty value, this will clean the search box.
+              if(featured.childNodes[i].childNodes[j].childNodes[q].id == 'title_search')
+              {
+                featured.childNodes[i].childNodes[j].childNodes[q].value = '';
+                featured.childNodes[i].childNodes[j].requestSubmit();
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 
   function getParents(paragraph) {
     let p_element = document.getElementsByClassName(paragraph.className)[0];
@@ -166,6 +199,8 @@
         }
       }
     }
+
+    clearForm(featured);
   }
   function createStripe() {
     //Create strip
@@ -221,7 +256,7 @@
     search_content.innerHTML = `
       <% @params_div = "${id}_search-results" %>
       <% params[:div_id] = @params_div %>
-      <%= form_with url: search_featured_content_index_path, method: :post do |form| %>
+      <%= form_with url: search_featured_content_index_path, id: "my_form", method: :post do |form| %>
         <%= form.search_field :title_search, value: params[:title_search], oninput: "this.form.requestSubmit()" %>
         <%= form.hidden_field :div_id, value: params[:div_id] %>
       <% end %>
