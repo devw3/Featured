@@ -128,9 +128,13 @@
   // Set values to the fields on the View
   function setResult(element, content) {
     // element = current object in json
-    // content = id of search content div
+    // content = id of featured div
 
     let featured = document.getElementById(content);
+    let link = 'http://localhost:3000/post/' + element.id.toString();
+
+    featured.href = '';
+    featured.href = link.toString();
 
     let childrens = featured.children.length; // just for count;
 
@@ -294,8 +298,11 @@
   // Append Elements in view
   function appendDiv(...n) {
     const uid = idGenerator()
-    let element = document.createElement("div");
+    let element = document.createElement("a");
     buttondlt = deleteButton(uid)
+    element.setAttribute('onclick', 'return false');
+    element.setAttribute('target', 'blank');
+    element.setAttribute('href', '#');
     element.setAttribute("id", uid)
     element.setAttribute("class", "featured")
     // Add attributes to the div
