@@ -37,46 +37,7 @@
     </div>
     <div>
       <div class="col py-3" id="content">
-        <!--init slid-->
-        <button id="addSlide">Add</button>
-
-        <!-- Carousel wrapper -->
-        <div class="rpCarousel">
-
-          <!-- Carousel holder -->
-          <div id='carousel-example-generic' class='carousel slide' data-ride='carousel'>
-            <!-- Indicators -->
-            <ol class='carousel-indicators'>
-              <li class="active" id="ciIndicator0" data-target='#carousel-example-generic' data-slide-to='0'></li>
-            </ol>
-            <!-- /Indicators -->
-
-            <!-- Wrapper for slides -->
-            <div class='carousel-inner'>
-              <div id="ciItem0" class='item active'><img src='https://source.unsplash.com/collection/190726/3000x900'
-                  alt='' />
-              </div>
-            </div>
-            <!-- /Wrapper for slides -->
-
-            <!-- Controls -->
-            <a class='left carousel-control' href='#carousel-example-generic' data-slide='prev'><span
-                class='glyphicon glyphicon-chevron-left'></span></a>
-            <a class='right carousel-control' href='#carousel-example-generic' data-slide='next'><span
-                class='glyphicon glyphicon-chevron-right'></span></a>
-            <!-- /Controls -->
-
-          </div>
-          <!-- /Carousel holder -->
-
-          <div id="removeItemContainer"></div>
-
-        </div>
-        <!-- /Carousel wrapper -->
-
-        <!--end slid-->
         Content area...
-
       </div>
     </div>
   </div>
@@ -263,6 +224,70 @@
       <div id="${id}_search-results"></div>
     `;
     return search_content;
+  }
+
+	// Buttons for slide
+	 function foo(which) {
+    $("#ciIndicator" + which).remove();
+    $("#ciItem" + which).remove();
+    $("#ciBtnRemove" + which).remove();
+  }
+
+	// Create slides function
+  function createSlide(){
+		document.getElementById("content").innerHTML += `<!--init slid-->
+			<button id="addSlide">Add</button>
+
+			<!-- Carousel wrapper -->
+			<div class="rpCarousel">
+
+				<!-- Carousel holder -->
+				<div id='carousel-example-generic' class='carousel slide' data-ride='carousel'>
+					<!-- Indicators -->
+					<ol class='carousel-indicators'>
+						<li class="active" id="ciIndicator0" data-target='#carousel-example-generic' data-slide-to='0'></li>
+					</ol>
+					<!-- /Indicators -->
+
+					<!-- Wrapper for slides -->
+					<div class='carousel-inner'>
+						<div id="ciItem0" class='item active'><img src='https://source.unsplash.com/collection/190726/3000x900'
+								alt='' />
+						</div>
+					</div>
+					<!-- /Wrapper for slides -->
+
+					<!-- Controls -->
+					<a class='left carousel-control' href='#carousel-example-generic' data-slide='prev'><span
+							class='glyphicon glyphicon-chevron-left'></span></a>
+					<a class='right carousel-control' href='#carousel-example-generic' data-slide='next'><span
+							class='glyphicon glyphicon-chevron-right'></span></a>
+					<!-- /Controls -->
+
+				</div>
+				<!-- /Carousel holder -->
+
+				<div id="removeItemContainer"></div>
+
+			</div>
+			<!-- /Carousel wrapper -->
+
+			<!--end slid-->`
+
+			$(window).load(function () {
+				$('#carousel-example-generic').carousel('pause');
+			});
+
+			var count = 1;
+			$("#addSlide").click(function () {
+				var carouselIndicators = "<li id='ciIndicator" + count + "' data-target='#carousel-example-generic' data-slide-to='" + count + "'></li>";
+				var carouselItem = "<div id='ciItem" + count + "' class='item'><img src='https://source.unsplash.com/collection/190726/3000x900 " + count + "' alt='' /></div>";
+				var removeItem = "<button id='ciBtnRemove" + count + "' onclick=foo('" + count + "')>Remove slide " + count + "</button>";
+				$("ol.carousel-indicators").append(carouselIndicators);
+				$(".carousel-inner").append(carouselItem);
+				$("#removeItemContainer").append(removeItem);
+				count++;
+			});
   }
 
 
